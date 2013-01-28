@@ -1,0 +1,26 @@
+top-level directory structure:
+msvc - MSVC2008 build directory
+utils - supplimentary tools such wget, tar, patch, etc needed for build;
+
+msvc directory includes:
+
+arch/           -  runtime and development dependencies (archives, can be collected with scripts)
+deps/           - unpacked build-time dependencies (can be re-created with scripts)
+deps_runtime/   - unpacked runtime dependencies (unpacked manually, no script for it)
+src/            - poppler sources (can be re-created with script)
+
+
+
+doc\building.txt        - instructions for buildind poppler
+doc\build_deps.txt      - list of dev packages with URLs
+doc\runtime_deps.txt    - list of runtime dependencies with URLs
+doc\modifications.txt   - list of modifications upon original sourse code and build scripts
+build.bat               - main script for building poppler
+cairo.patch             - patch for cairo dev package
+poppler-0.22.0.patch    - patch for poppler sources
+get_deps.bat            - helper script for downloading, unpacking and patching dependencies
+get_poppler.bat         - helper script for downloading, unpacking and patching poppler
+get_runtime_deps.bat    - helper script for getting runtime dependencies (archives)
+
+Please read building.txt for details.
+

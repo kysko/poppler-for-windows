@@ -1,0 +1,12 @@
+diff -rupN cairo-orig\/include/cairo/cairo-features.h cairo\/include/cairo/cairo-features.h
+--- cairo-orig\/include/cairo/cairo-features.h	2011-11-22 10:48:26.000000000 +0300
++++ cairo\/include/cairo/cairo-features.h	2011-11-25 23:25:40.564792000 +0300
+@@ -2,7 +2,7 @@
+ #ifndef CAIRO_FEATURES_H
+ #define CAIRO_FEATURES_H
+ 
+-#define CAIRO_HAS_FC_FONT 1
++//#define CAIRO_HAS_FC_FONT 1
+ #define CAIRO_HAS_FT_FONT 1
+ #define CAIRO_HAS_GOBJECT_FUNCTIONS 1
+ #define CAIRO_HAS_IMAGE_SURFACE 1

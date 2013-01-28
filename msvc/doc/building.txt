@@ -1,0 +1,49 @@
+HOWTO BUILD POPPLER 0.22.0 FROM SOURCES USING MS VISUAL STUDIO 2008
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+by Ilya Kitaev, mbg033@gmail.com, last edited 2013-01-21
+
+Inside archive you can find following directory structure:
+  src - for poppler sources
+  deps - for unpacked build dependencies
+  arch - for downloaded archives 
+    (build-time and run-time dependencies aka dev and bin packages)
+  deps_runtime - for unpacked runtime dependencies
+  docs - notes and instructions
+
+1. Assuming that you already have development environment installed:
+  - Visual Studio 2008 (Express or Professional, I used professional) 
+  - CMake (http://www.cmake.org/files/v2.8/cmake-2.8.6-win32-x86.exe)
+  - Qt libraries (optional, I used 4.7.3, http://get.qt.nokia.com/qt/source/qt-win-opensource-4.7.3-vs2008.exe)
+    intalled into c:\qt\4.7.3-msvc2008
+  - utils such wget, patch, diff, etc (included in archive). Must be in PATH variable (build script handles this).
+
+2. Unpack archive into some directory. My was c:\dev\poppler_build. 
+  NOTE: I didn't tested build if path contains spaces, so it's better to not have spaces in path.
+
+3. Go to msvc directory.
+  There are already downloaded, unpacked and patched poppler sources and dependencies,
+  But script should download, unpack and patch them in case if they don't exist.
+  (You can also re-download, unpack and patch it with get_poppler.bat and get_deps.bat scripts)
+  !WARNING! 
+  I encountered with access violation in pdf2cairo.exe launched  with -png or -jpeg.
+  I found one solution is to build libpng statically.
+  I don't know, maybe there's better solution but it works.
+  Script should build static version automatically and place it as deps\libpng\libpng_static.lib
+  Sources for static version is in libpng directory
+  Also, you still need libpng14-14.dll in PATH because libcairo-2.dll need it in runtime.
+
+4. Optional. edit build.bat to set destination directory (where product files will be placed),
+   variable INSTALL_PREFIX
+   Now it is C:\temp\poppler-msvc2008
+
+5. Run build.bat and wait some time
+  (it needed about 5-7 min in my configuration - Intel P8400 CPU)
+  
+6. After successfull build, files will be places into C:\temp\poppler-msvc2008
+   (or another, if you changed it).
+
+7. Place runtime dependencies (from deps_runtime directory) into directory which accessible througt PATH
+   environment variable or directly inside poppler output directory  (C:\temp\poppler-msvc2008)
+   Also you can use get_runtime_deps.bat to donwload all runtime dependencies.
+
+That's all

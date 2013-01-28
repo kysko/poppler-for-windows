@@ -1,0 +1,29 @@
+cairo
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo-dev_1.10.2-2_win32.zip
+
+fontconfig
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/fontconfig-dev_2.8.0-2_win32.zip
+
+freetype
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/freetype-dev_2.4.10-1_win32.zip
+
+iconv
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libiconv-1.9.1.bin.woe32.zip
+
+libjpeg
+    sourceforge.net/projects/gnuwin32/files/jpeg/6b-4/jpeg-6b-4-lib.zip
+
+lcms
+    http://sourceforge.net/projects/lcms/files/lcms/1.19/lcms-1.19.zip
+    COMMENT1 To build lcms follow instructions in archive
+    system. 
+    COMMENT2 FOR MSVC only: Patch supplied makes proper icc34.h
+    COMMENT3 FOR MSVC only: To get proper icc34.h we need to run configure in linux
+    and put icc34.h to include/ dir.
+
+libpng
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libpng-dev_1.4.12-1_win32.zip
+libtiff
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libtiff-dev_3.9.2-1_win32.zip
+zlib
+    http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/zlib-dev_1.2.5-2_win32.zip

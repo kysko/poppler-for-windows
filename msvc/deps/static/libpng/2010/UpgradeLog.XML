@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="libpng_static">
+</Property><Property Name="Solution File" Value="C:\poppler_build\msvc\libpng\libpng_static.sln">
+</Property><Property Name="Date" Value="Monday, 28 January 2013">
+</Property><Property Name="Time" Value="12:48 PM">
+</Property></Properties><Event ErrorLevel="0" Project="libpng" Source="libpng\libpng.vcproj" Description="Converting project file 'C:\poppler_build\msvc\libpng\libpng\libpng.vcproj'.">
+</Event><Event ErrorLevel="1" Project="libpng" Source="libpng\libpng.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="libpng" Source="libpng\libpng.vcproj" Description="MSB8012: $(TargetName) ('libpng') does not match the Librarian's OutputFile property value 'C:\poppler_build\msvc\libpng\Debug\libpng_static.lib' ('libpng_static') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetName) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="1" Project="libpng" Source="libpng\libpng.vcproj" Description="MSB8012: $(TargetPath) ('C:\poppler_build\msvc\libpng\Debug\libpng.lib') does not match the Librarian's OutputFile property value 'C:\poppler_build\msvc\libpng\Debug\libpng_static.lib' ('C:\poppler_build\msvc\libpng\Debug\libpng_static.lib') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="1" Project="libpng" Source="libpng\libpng.vcproj" Description="MSB8012: $(TargetName) ('libpng') does not match the Librarian's OutputFile property value 'C:\poppler_build\msvc\libpng\Release\libpng_static.lib' ('libpng_static') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetName) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="1" Project="libpng" Source="libpng\libpng.vcproj" Description="MSB8012: $(TargetPath) ('C:\poppler_build\msvc\libpng\Release\libpng.lib') does not match the Librarian's OutputFile property value 'C:\poppler_build\msvc\libpng\Release\libpng_static.lib' ('C:\poppler_build\msvc\libpng\Release\libpng_static.lib') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="0" Project="libpng" Source="libpng\libpng.vcproj" Description="Done converting to new project file 'C:\poppler_build\msvc\libpng\libpng\libpng.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="libpng" Source="libpng\libpng.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="libpng_static.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="libpng_static.sln" Description="Converted">
+</Event></UpgradeLog>

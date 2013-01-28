@@ -1,0 +1,39 @@
+diff -urpN poppler-0.22.0-orig/cpp/CMakeLists.txt poppler-0.22.0/cpp/CMakeLists.txt
+--- poppler-0.22.0-orig/cpp/CMakeLists.txt	Wed Nov 23 01:47:19 2011
++++ poppler-0.22.0/cpp/CMakeLists.txt	Mon Jan 21 00:22:29 2013
+@@ -1,6 +1,7 @@
+ include_directories(
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_BINARY_DIR}
++  ${ICONV_INCLUDE_DIR}
+ )
+ 
+ configure_file(poppler-version.h.in ${CMAKE_CURRENT_BINARY_DIR}/poppler-version.h @ONLY)
+diff -urpN poppler-0.22.0-orig/poppler/CairoRescaleBox.cc poppler-0.22.0/poppler/CairoRescaleBox.cc
+--- poppler-0.22.0-orig/poppler/CairoRescaleBox.cc	Fri Dec 28 04:17:03 2012
++++ poppler-0.22.0/poppler/CairoRescaleBox.cc	Mon Jan 21 00:36:51 2013
+@@ -45,7 +45,9 @@
+ #include <config.h>
+ #endif
+ 
++#ifndef _MSC_VER
+ #include <stdint.h>
++#endif
+ #include <stdio.h>
+ #include <assert.h>
+ #include <stdlib.h>
+diff -urpN poppler-0.22.0-orig/utils/pdftocairo.cc poppler-0.22.0/utils/pdftocairo.cc
+--- poppler-0.22.0-orig/utils/pdftocairo.cc	Sun Dec  9 02:43:22 2012
++++ poppler-0.22.0/utils/pdftocairo.cc	Mon Jan 21 00:10:37 2013
+@@ -252,6 +252,11 @@ static cmsHPROFILE profile;
+ #endif
+ 
+ 
++#if defined(WIN32) || defined(WIN64)
++#define strcasecmp _stricmp
++#endif /* Def WIN32 or Def WIN64 */
++
++
+ void writePageImage(GooString *filename)
+ {
+   ImgWriter *writer = 0;
