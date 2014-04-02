@@ -1,0 +1,33 @@
+HOWTO BUILD POPPLER 0.22.2 FROM SOURCES USING MinGW
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Inside archive you can find following directory structure:
+  src - for poppler sources
+  deps - for unpacked build dependencies
+  arch - for downloaded archives 
+    (build-time and run-time dependencies aka dev and bin packages)
+  deps_runtime - for unpacked runtime dependencies
+
+1. Assuming that you already have development environment installed:
+  - MingW (I used zip archive from http://get.qt.nokia.com/misc/MinGW-gcc440_1.zip)
+  - Qt libraries (I used 4.7.3, http://get.qt.nokia.com/qt/source/qt-win-opensource-4.7.3-mingw.exe)
+    intalled into c:\qt\4.7.3-mingw
+  - MSYS (needed for building lcms)
+  - utils such wget, patch, diff, etc.  Must be in folder that in PATH variable.
+  - CMake (http://www.cmake.org/files/v2.8/cmake-2.8.6-win32-x86.exe)
+
+2. Unpack archive into some directory. My was c:\dev\poppler_build
+
+3. Build script should download, unpack, patch and build all dependencies.
+
+4. Edit build.bat to set variables:
+   - TOP - directory where you unpacked archive including msvc or mingw subdirs
+   - QT_BIN - directory where Qt binaries installed
+
+5. Run build.bat and wait some time until script finished.
+  
+6. After successfull build, files will be places into %TOP%\build directory
+   
+7. Runtime dependencies should be copied automatically by into %TOP%\build\bin by build script.
+
+That's all  

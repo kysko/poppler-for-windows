@@ -1,0 +1,9 @@
+1 jpeg62.dll   http://gnuwin32.sourceforge.net/downlinks/jpeg-bin-zip.php
+2 libcairo-2.dll http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo_1.10.2-2_win32.zip
+3 libfontconfig-1.dll http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/fontconfig_2.8.0-2_win32.zip
+4 libpng14-14.dll http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libpng_1.4.12-1_win32.zip
+5 libtiff3.dll http://gnuwin32.sourceforge.net/downlinks/tiff-bin-zip.php
+6 freetype6.dll  http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/freetype_2.4.10-1_win32.zip
+7 libexpat-1.dll http://sourceforge.net/projects/expat/files/expat_win32/2.0.1/expat-win32bin-2.0.1.exe
+  or better use file from mingw distributon
+8 zlib1.dll http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/zlib_1.2.5-2_win32.zip

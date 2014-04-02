@@ -1,0 +1,9 @@
+This document provided for information only. For real modifications use 
+*.patch files provided
+
+1 Patch src/poppler-0.22.2/cpp/CMakeLists.txt to include ICONV includes
+2 Patch src/poppler-0.22.2/poppler/CairoRescaleBox.cc, line 32
+  (exclude #include <stdint.h> clause for MS compiler)
+2 Patch deps/cairo/include/cairo/cairo-features.h 
+  //#define CAIRO_HAS_FC_FONT 1
+3 Patch  src/poppler-0.22.2/utils/pdftocairo.cc (strcasecmp replacement via #define)  
