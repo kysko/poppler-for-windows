@@ -1,12 +1,16 @@
+@echo off
 call setenv.bat
 rem set PATH=%MSYS_BIN%;%MINGW_BIN%;%COMMON_BIN%
-@echo on
+
+
+
 echo cairo-----------------------------------------------------
 if not exist .\deps\cairo (
 wget -nc -P .\arch http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo-dev_1.10.2-2_win32.zip
 unzip -u .\arch\cairo-dev_1.10.2-2_win32.zip -d .\deps\cairo
-patch -t --forward -d deps\cairo -p1 < cairo.patch
+patch -t --forward -d deps\cairo -p1 < .\patches\cairo.patch
 )
+
 
 echo fontconfig------------------------------------------------
 if not exist .\deps\fonfconfig (
@@ -76,21 +80,41 @@ rem bash -c 'make install'
 rem goto :end
 rem )
 
-
 :lcms
-echo lcms------------------------------------------------------
+@echo lcms------------------------------------------------------
+@rem IMPORTANT! SET doesn't work outside of if ()
+SET LCMS2_INSTALL_PREFIX="%TOP%\deps\lcms2"
+
 if not exist .\deps\lcms2-2.4 (
 wget -nc -P .\arch sourceforge.net/projects/lcms/files/lcms/2.4/lcms2-2.4.zip
+
+if "%LCMS2_INSTALL_PREFIX%" == "" (
+    Echo "Error setting variable"
+    goto :end
+)
+
 unzip -u .\arch\lcms2-2.4.zip -d .\deps
+echo on
 @rem Make sure that building lcms is the last step because after build finishes, 
 @rem something happened with environment and unzip stops working
-set LCMS_INSTALL_PREFIX=%TOP%\deps\lcms2
-mkdir %LCMS_INSTALL_PREFIX%
-cd %LCMS_INSTALL_PREFIX%
-bash -c '../lcms2-2.4/configure --prefix=$PWD'
-bash -c 'make'
-bash -c 'make install'
+mkdir %LCMS2_INSTALL_PREFIX%
+cd "%LCMS2_INSTALL_PREFIX%"
+bash -c "../lcms2-2.4/configure --prefix=$PWD"
+bash -c "make"
+bash -c "make install"
 )
+goto :end
+
+
+:test_set
+set ABS="TEST01"
+if "%ABS%" == "" (
+    Echo "Error setting ABS variable"
+    goto :end
+) else (
+    Echo "ABS=%ABS%"
+)
+goto:eof 
 
 :end
 cd %TOP%

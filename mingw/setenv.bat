@@ -1,5 +1,5 @@
-set PROGRAM_FILES=%ProgramFiles(x86)%
 set TOP=%CD%
+set PROGRAM_FILES=%ProgramFiles(x86)%
 set TOP_DEPS=%TOP%\deps
 set QT_BIN=c:\Qt\4.8.5-mingw\bin
 set POPPLER_URL=git://git.freedesktop.org/git/poppler/poppler
@@ -10,7 +10,7 @@ set CMAKE_BIN="%PROGRAM_FILES%\CMake 2.8\bin"
 set GIT_BIN="%PROGRAM_FILES%\Git\bin"
 call :setAbsPath  UTILS_PATH %~dp0.\utils
 rem set PATH=%UTILS_PATH%;%MSYS_BIN%;%MINGW_BIN%;%CMAKE_BIN%;%GIT_BIN%
-set PATH=%MSYS_BIN%;%MINGW_BIN%;%CMAKE_BIN%;%GIT_BIN%;%UTILS_PATH%
+set PATH=%MSYS_BIN%;%MINGW_BIN%;%CMAKE_BIN%;%GIT_BIN%;%UTILS_PATH%;%SYSTEMROOT%\System32;
 goto end
 
 :setAbsPath
