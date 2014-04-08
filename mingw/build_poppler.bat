@@ -38,6 +38,8 @@ rem  -DBUILD_QT5_TESTS:BOOL=OFF ^
 
 rem  -DFONTCONFIG_INCLUDE_DIR:PATH="%TOP_DEPS%/fontconfig/include"^
 rem  -DFONTCONFIG_LIBRARIES:FILEPATH="%TOP_DEPS%/fontconfig/lib/libfontconfig.dll.a"^
+rem  -DICONV_INCLUDE_DIR:PATH="%TOP_DEPS%/libiconv/include"^
+rem  -DICONV_LIBRARIES:FILEPATH="%TOP_DEPS%/libiconv/lib/libiconv.a"^
 
 cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DPKG_CONFIG_EXECUTABLE:FILEPATH="%TOP%/utils/pkg-config.exe"^
@@ -61,8 +63,6 @@ cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DFREETYPE_INCLUDE_DIR_freetype2:PATH="%TOP_DEPS%/freetype/include/freetype2"^
   -DFREETYPE_INCLUDE_DIR_ft2build:PATH="%TOP_DEPS%/freetype/include"^
   -DFREETYPE_LIBRARY:FILEPATH="%TOP_DEPS%/freetype/lib/libfreetype.dll.a"^
-  -DICONV_INCLUDE_DIR:PATH="%TOP_DEPS%/libiconv/include"^
-  -DICONV_LIBRARIES:FILEPATH="%TOP_DEPS%/libiconv/lib/libiconv.a"^
   -DZLIB_INCLUDE_DIR:PATH="%TOP_DEPS%/zlib/include"^
   -DZLIB_LIBRARY:FILEPATH="%TOP_DEPS%/zlib/lib/libz.dll.a"^
   -DJPEG_INCLUDE_DIR:PATH="%TOP_DEPS%/libjpeg/include" ^
