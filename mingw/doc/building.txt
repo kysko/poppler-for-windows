@@ -1,33 +1,54 @@
-HOWTO BUILD POPPLER 0.22.2 FROM SOURCES USING MinGW
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+BUILDING Poppler for Windows with Mingw/MSYS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Inside archive you can find following directory structure:
-  src - for poppler sources
-  deps - for unpacked build dependencies
-  arch - for downloaded archives 
-    (build-time and run-time dependencies aka dev and bin packages)
-  deps_runtime - for unpacked runtime dependencies
+1. Preresequities
+1.1. MINGW and MSYS (could be installed with installer "mingw-get-setup.exe", http://sourceforge.net/projects/mingw/?source=directory),
+    install following packages:
+     -  mingw32-base
+     -  mingw32-gcc-g++
+     -  msys-base
+     -  mingw32-libiconv-dev
+     -  mingw32-libiconv-bin
+     -  mingw32-expat
+     or close mingw-get UI right after it installed,  add c:\MinGW\bin directory to your PATH variable and run "setup_mingw.bat" helper script,
+     it will install all needed packages automatically.
+1.2. msysgit (http://msysgit.github.io/)
+1.3.(Optional, if Qt wrapper needed) Qt 4.8.5 mingw (http://download.qt-project.org/official_releases/qt/4.8/4.8.5/qt-win-opensource-4.8.5-mingw.exe)
+1.4. CMake 2.8+ (http://www.cmake.org/cmake/resources/software.html)
 
-1. Assuming that you already have development environment installed:
-  - MingW (I used zip archive from http://get.qt.nokia.com/misc/MinGW-gcc440_1.zip)
-  - Qt libraries (I used 4.7.3, http://get.qt.nokia.com/qt/source/qt-win-opensource-4.7.3-mingw.exe)
-    intalled into c:\qt\4.7.3-mingw
-  - MSYS (needed for building lcms)
-  - utils such wget, patch, diff, etc.  Must be in folder that in PATH variable.
-  - CMake (http://www.cmake.org/files/v2.8/cmake-2.8.6-win32-x86.exe)
+2. Directory structure
+2.1. Static directories:  
+  doc/     - documentation, including this file
+  patches/ - patches, needed for successful building
+  utils/   - different utils like patch, wget, unzip, used in build scripts
+  post_build_files - TODO
 
-2. Unpack archive into some directory. My was c:\dev\poppler_build
+2.2. Directories created automatically during build
+  deps/            - build-time dependencies (*-dev packages)
+  deps_runtime/    - runtime dependencies, here's collected all DLLs that will be added to final "bin" directory, 
+                     so it will be possible to run poppler without installing any additional software
+  downloads/       - directory where all downloaded archives stored
+  poppler-build/   - directory where CMake will create subdirectories for each branch, where actual build will be performed
+  poppler-install/ - directory, where CMake will place final product (subdirectories will be named as <branch_name>_<architecture_name>
+                     e.g. "poppler-0.24.5_x86"
+  poppler-src/     - directory containing git repository with poppler sources, which will be checked out by build script.
 
-3. Build script should download, unpack, patch and build all dependencies.
+2.3 Build scripts
+  "build.bat"   - main build script, do actual work, may call other helper scripts. Accepts tag name as parameter ("master" or "poppler-0.24.5",
+                  check "git tag" output for complete list of available tags
+  "build_master.bat" - wrapper that builds "master" branch.
+  "build_stable.bat" - wrapper that builds "stable" (currently poppler-0.24.5) branch (tag)
+  "get_deps.bat"     - helper that downloads and prepares dependencies
+  "get_poppler.bat"  - helper that creates and updates sources from remote poppler repository
+  "get_runtime_deps.bat" - helper that downloads and collects runtime dependencies
+  "setenv.bat"       - contains environment variables, needed for build script. Adjust variables if you have mingw, cmake and
+                       git installed in non-default locations.
+                       
+                   
 
-4. Edit build.bat to set variables:
-   - TOP - directory where you unpacked archive including msvc or mingw subdirs
-   - QT_BIN - directory where Qt binaries installed
-
-5. Run build.bat and wait some time until script finished.
-  
-6. After successfull build, files will be places into %TOP%\build directory
-   
-7. Runtime dependencies should be copied automatically by into %TOP%\build\bin by build script.
+3. Building
+Assuming that all tools listed in (1) installed properly, just start "build_master.bat" or "build_stable.bat" and wait.
+Ready to run poppler binaries will be placed in %TOP%\poppler-install\<tag-name>_<architecture>\bin folder.
+***IMPORTANT*** spaces in path to %TOP% are NOT ALLOWED
 
 That's all  

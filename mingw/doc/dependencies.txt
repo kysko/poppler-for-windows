@@ -1,0 +1,6 @@
+1. BUILD TIME DEPENDENCIES (dev packages)
+  please check "get_deps.bat" script for most recent list of dependencies.
+
+2. RUNTIME DEPENDENCIES
+  please check "get_runtime_deps.bat" script for most recent list of dependencies.
+    

@@ -1,6 +1,5 @@
-call setenv.bat
-call get_poppler.bat
-call get_deps.bat
+@echo off
+@call setenv.bat
 
 set TARGET_PLATFORM=x32
 rem set POPPLER_BUILD_TOP=c:\temp\poppler_build
@@ -11,9 +10,16 @@ set POPPLER_BRANCH=poppler-0.24.5
 set POPPLER_BUILD_DIR=%POPPLER_BUILD_TOP%\%TARGET_PLATFORM%\%POPPLER_BRANCH%
 set INSTALL_PREFIX=%TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
 
+
 if not exist "%POPPLER_BUILD_DIR%" (
   mkdir "%POPPLER_BUILD_DIR%"
 )
+
+goto :runtime_deps
+
+
+call get_poppler.bat
+call get_deps.bat
 
 
 @echo checking out sources
@@ -33,9 +39,9 @@ if "%TOP_DEPS%" == "" (
 
 rem We should not have MSYS bin dir in path because cmake complains about it when target compiler is Mingw
 set PATH=%UTILS_BIN%;%QT_BIN%;%CMAKE_BIN%;%MINGW_BIN%
-rem  -DBUILD_GTK_TESTS:BOOL=OFF ^
-rem  -DBUILD_QT5_TESTS:BOOL=OFF ^
 
+
+rem  TODO delete following lines when done
 rem  -DFONTCONFIG_INCLUDE_DIR:PATH="%TOP_DEPS%/fontconfig/include"^
 rem  -DFONTCONFIG_LIBRARIES:FILEPATH="%TOP_DEPS%/fontconfig/lib/libfontconfig.dll.a"^
 rem  -DICONV_INCLUDE_DIR:PATH="%TOP_DEPS%/libiconv/include"^
@@ -71,16 +77,25 @@ cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DLCMS2_LIBRARIES:FILEPATH="%TOP_DEPS%/lcms2/lib/liblcms2.a"^ 
   -DLIB_SUFFIX:STRING="" ^
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
+
 echo "CMAKE DONE"
 
 :build
 mingw32-make
 mingw32-make install
 
-
+:runtime_deps
 cd %TOP%
+@rem collecting runtime dependencies #1
+@call get_runtime_deps.bat
 copy /Y deps_runtime %INSTALL_PREFIX%\bin\
 
+@rem collecting runtime dependencies #2
+@rem we will copy  libexpat-1.dll, libgcc_s_dw2-1.dll, libstdc++-6.dll from MINGW_BIN directory;
+
+for %%f in (libexpat-1.dll libgcc_s_dw2-1.dll libstdc++-6.dll) do (
+    copy /Y "%MINGW_BIN%\%%f" %INSTALL_PREFIX%\bin\
+)
 
 :end
 echo "finished"
