@@ -1,0 +1,4 @@
+This document provided for information only. For real modifications use 
+*.patch files provided
+1 Patch deps/cairo/include/cairo/cairo-features.h 
+  //#define CAIRO_HAS_FC_FONT 1
