@@ -1,9 +1,15 @@
-set RUNTIME_DEPS_DOWNLOAD_DIR=.\downloads\runtime
-set RUNTIME_DEPS_DST_DIR=.\deps_runtime
+set PLATFORM=%1
+if "%PLATFORM%" == "" SET PLATFORM=x86
+
+
+set RUNTIME_DEPS_DOWNLOAD_DIR=.\downloads\runtime\%PLATFORM%
+set RUNTIME_DEPS_DST_DIR=.\deps_runtime\%PLATFORM%
 
 if not exist %RUNTIME_DEPS_DOWNLOAD_DIR% mkdir %RUNTIME_DEPS_DOWNLOAD_DIR%
 if not exist %RUNTIME_DEPS_DST_DIR% mkdir %RUNTIME_DEPS_DST_DIR%
 
+
+if %PLATFORM% == x86 (
 wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo_1.10.2-2_win32.zip
 unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\cairo_1.10.2-2_win32.zip bin/libcairo-2.dll -d %RUNTIME_DEPS_DST_DIR%
 
@@ -24,5 +30,29 @@ unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\freetype_2.4.10-1_win32.zip bin/freetype
 
 wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/zlib_1.2.5-2_win32.zip
 unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\zlib_1.2.5-2_win32.zip bin/zlib1.dll -d %RUNTIME_DEPS_DST_DIR%
+
+) else if %PLATFORM% == x64 (
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/cairo_1.10.2-1_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\cairo_1.10.2-1_win64.zip bin/libcairo-2.dll -d %RUNTIME_DEPS_DST_DIR%
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/fontconfig_2.8.0-2_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\fontconfig_2.8.0-2_win64.zip bin/libfontconfig-1.dll -d %RUNTIME_DEPS_DST_DIR%
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/jpeg_6b-2_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\jpeg_6b-2_win64.zip bin/libjpeg-62.dll -d %RUNTIME_DEPS_DST_DIR%
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/libpng_1.4.3-1_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\libpng_1.4.3-1_win64.zip bin/libpng14-14.dll -d %RUNTIME_DEPS_DST_DIR%
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/libtiff_3.9.1-1_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\libtiff_3.9.1-1_win64.zip bin/libtiff.dll -d %RUNTIME_DEPS_DST_DIR%
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/freetype_2.4.4-1_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\freetype_2.4.4-1_win64.zip bin/libfreetype-6.dll -d %RUNTIME_DEPS_DST_DIR%
+
+wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/zlib_1.2.5-1_win64.zip
+unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\zlib_1.2.5-1_win64.zip bin/zlib1.dll -d %RUNTIME_DEPS_DST_DIR%
+)
 
 :end

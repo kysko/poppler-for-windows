@@ -1,7 +1,8 @@
-@echo off
+@rem echo off
 @call setenv.bat
 
 set POPPLER_BRANCH=%1%
+@rem TODO: pass platform as parameter
 set TARGET_PLATFORM=x86
 
 set POPPLER_BUILD_TOP=.\poppler-build
@@ -10,16 +11,15 @@ rem set POPPLER_BRANCH=master
 
 if %POPPLER_BRANCH% == "" set POPPLER_BRANCH=poppler-0.24.5
 
-set POPPLER_BUILD_DIR=%POPPLER_BUILD_TOP%\%POPPLER_BRANCH%_%TARGET_PLATFORM%
-set INSTALL_PREFIX=%TOP%\poppler-install\%POPPLER_BRANCH%_%TARGET_PLATFORM%
-
+set POPPLER_BUILD_DIR=%POPPLER_BUILD_TOP%\%TARGET_PLATFORM%\%POPPLER_BRANCH%
+set INSTALL_PREFIX=%TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
 
 if not exist "%POPPLER_BUILD_DIR%" (
   mkdir "%POPPLER_BUILD_DIR%"
 )
 
 call get_poppler.bat
-call get_deps.bat
+call get_deps_%TARGET_PLATFORM%.bat
 
 
 @echo checking out sources
@@ -86,7 +86,7 @@ mingw32-make install
 cd %TOP%
 @rem collecting runtime dependencies #1
 @call get_runtime_deps.bat
-copy /Y deps_runtime %INSTALL_PREFIX%\bin\
+copy /Y deps_runtime\%TARGET_PLATFORM%\ %INSTALL_PREFIX%\bin\
 
 @rem collecting runtime dependencies #2
 @rem we will copy  libexpat-1.dll, libgcc_s_dw2-1.dll, libstdc++-6.dll from MINGW_BIN directory;
