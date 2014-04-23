@@ -1,4 +1,4 @@
-call setenv.bat
+@rem call setenv.bat
 
 
 if not exist %POPPLER_SRC% (

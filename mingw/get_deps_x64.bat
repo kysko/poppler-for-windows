@@ -1,6 +1,6 @@
 @echo off
-call setenv.bat
 set PLATFORM=x64
+call setenv.bat %PLATFORM%
 
 if not exist %TOP%\deps\%PLATFORM% mkdir %TOP%\deps\%PLATFORM%
 if not exist %TOP%\downloads\%PLATFORM% mkdir %TOP%\downloads\%PLATFORM%
@@ -14,7 +14,7 @@ patch -t --forward -d deps\%PLATFORM%\cairo -p1 < .\patches\cairo.patch
 )
 echo fontconfig------------------------------------------------
 if not exist .\deps\%PLATFORM%\fonfconfig (
-wget -nc -P .\downloads\%PLATFORM%  http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/fontconfig-dev_2.8.0-2_win64.zip
+wget -nc -P .\downloads\%PLATFORM%  http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/fontconfig-dev_2.8.0-2_win64.zip
 unzip -u .\downloads\%PLATFORM%\fontconfig-dev_2.8.0-2_win64.zip -d .\deps\%PLATFORM%\fontconfig
 )
 
@@ -28,8 +28,9 @@ unzip -u .\downloads\%PLATFORM%\freetype-dev_2.4.4-1_win64.zip -d .\deps\%PLATFO
 
 echo libiconv--------------------------------------------------
 if not exist .\deps\%PLATFORM%\libiconv (
-wget -nc -P .\downloads\%PLATFORM% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/libiconv-1.9.1.bin.woe32.zip
-unzip -u .\downloads\%PLATFORM%\libiconv-1.9.1.bin.woe32.zip -d .\deps\%PLATFORM%\libiconv
+@rem wget -nc -P .\downloads\%PLATFORM% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/libiconv-1.9.1.bin.woe32.zip
+wget -nc -P .\downloads\%PLATFORM% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/win-iconv-dev_tml-20100912_win64.zip
+unzip -u .\downloads\%PLATFORM%\win-iconv-dev_tml-20100912_win64.zip -d .\deps\%PLATFORM%\libiconv
 
 )
 
@@ -90,7 +91,7 @@ rem )
 @echo lcms------------------------------------------------------
 @rem IMPORTANT! SET doesn't work outside of if ()
 SET LCMS2_INSTALL_PREFIX="%TOP%\deps\%PLATFORM%\lcms2"
-
+@rem echo PATH=%PATH%
 if not exist .\deps\%PLATFORM%\lcms2-2.4 (
 wget -nc -P .\downloads\%PLATFORM% sourceforge.net/projects/lcms/files/lcms/2.4/lcms2-2.4.zip
 

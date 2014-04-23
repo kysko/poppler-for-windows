@@ -1,15 +1,16 @@
 @rem echo off
-@call setenv.bat
 
 set POPPLER_BRANCH=%1%
 @rem TODO: pass platform as parameter
-set TARGET_PLATFORM=x86
+set TARGET_PLATFORM=%2%
 
 set POPPLER_BUILD_TOP=.\poppler-build
 
 rem set POPPLER_BRANCH=master
 
-if %POPPLER_BRANCH% == "" set POPPLER_BRANCH=poppler-0.24.5
+if "%POPPLER_BRANCH%" == "" set POPPLER_BRANCH=poppler-0.24.5
+if "%TARGET_PLATFORM%" == "" set TARGET_PLATFORM=x86    
+    
 
 set POPPLER_BUILD_DIR=%POPPLER_BUILD_TOP%\%TARGET_PLATFORM%\%POPPLER_BRANCH%
 set INSTALL_PREFIX=%TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
@@ -18,8 +19,10 @@ if not exist "%POPPLER_BUILD_DIR%" (
   mkdir "%POPPLER_BUILD_DIR%"
 )
 
-call get_poppler.bat
-call get_deps_%TARGET_PLATFORM%.bat
+@call setenv.bat %TARGET_PLATFORM%
+@call get_deps_%TARGET_PLATFORM%.bat
+echo "TARGET_PLATFORM=%TARGET_PLATFORM%"
+@call get_poppler.bat
 
 
 @echo checking out sources
@@ -38,6 +41,7 @@ if "%TOP_DEPS%" == "" (
 
 rem We should not have MSYS bin dir in path because cmake complains about it when target compiler is Mingw
 set PATH=%MINGW_BIN%;%CMAKE_BIN%;%QT_BIN%;%UTILS_PATH%;%SYSTEMROOT%\System32;
+rem echo "PATH=%PATH%"
 
 rem  TODO delete following lines when done
 rem  -DFONTCONFIG_INCLUDE_DIR:PATH="%TOP_DEPS%/fontconfig/include"^
@@ -73,10 +77,13 @@ cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DJPEG_LIBRARY:FILEPATH="%TOP_DEPS%/libjpeg/lib/libjpeg.dll.a" ^
   -DLCMS2_INCLUDE_DIR:PATH="%TOP_DEPS%/lcms2/include"^
   -DLCMS2_LIBRARIES:FILEPATH="%TOP_DEPS%/lcms2/lib/liblcms2.a"^ 
+  -DICONV_INCLUDE_DIR:PATH="%TOP_DEPS%/libiconv/include"^
+  -DICONV_LIBRARIES:FILEPATH="%TOP_DEPS%/libiconv/lib/libiconv.dll.a"^
   -DLIB_SUFFIX:STRING="" ^
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 echo "CMAKE DONE"
+if %ERRORLEVEL% neq 0 goto :error
 
 :build
 mingw32-make
@@ -85,7 +92,7 @@ mingw32-make install
 :runtime_deps
 cd %TOP%
 @rem collecting runtime dependencies #1
-@call get_runtime_deps.bat
+@call get_runtime_deps.bat %TARGET_PLATFORM%
 copy /Y deps_runtime\%TARGET_PLATFORM%\ %INSTALL_PREFIX%\bin\
 
 @rem collecting runtime dependencies #2
@@ -95,5 +102,11 @@ for %%f in (libexpat-1.dll libgcc_s_dw2-1.dll libstdc++-6.dll) do (
     copy /Y "%MINGW_BIN%\%%f" %INSTALL_PREFIX%\bin\
 )
 
+goto :end
+
+:error
+echo "BUILD FAILED!"
+
 :end
 echo "finished"
+cd %TOP%
