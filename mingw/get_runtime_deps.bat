@@ -1,3 +1,4 @@
+@echo off
 set PLATFORM=%1
 if "%PLATFORM%" == "" SET PLATFORM=x86
 
@@ -9,7 +10,7 @@ if not exist %RUNTIME_DEPS_DOWNLOAD_DIR% mkdir %RUNTIME_DEPS_DOWNLOAD_DIR%
 if not exist %RUNTIME_DEPS_DST_DIR% mkdir %RUNTIME_DEPS_DST_DIR%
 
 
-if %PLATFORM% == x86 (
+if "%PLATFORM%" == "x86" (
 wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/cairo_1.10.2-2_win32.zip
 unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\cairo_1.10.2-2_win32.zip bin/libcairo-2.dll -d %RUNTIME_DEPS_DST_DIR%
 
@@ -31,7 +32,7 @@ unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\freetype_2.4.10-1_win32.zip bin/freetype
 wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/zlib_1.2.5-2_win32.zip
 unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\zlib_1.2.5-2_win32.zip bin/zlib1.dll -d %RUNTIME_DEPS_DST_DIR%
 
-) else if %PLATFORM% == x64 (
+) else if "%PLATFORM%" == "x64" (
 
 wget -nc -P %RUNTIME_DEPS_DOWNLOAD_DIR% http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies/cairo_1.10.2-1_win64.zip
 unzip -u -j %RUNTIME_DEPS_DOWNLOAD_DIR%\cairo_1.10.2-1_win64.zip bin/libcairo-2.dll -d %RUNTIME_DEPS_DST_DIR%
