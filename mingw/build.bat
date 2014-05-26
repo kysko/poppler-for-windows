@@ -1,14 +1,19 @@
 @rem echo off
 
+@rem first parameter: branch to build: could be master or any of the listed by "git tag" command. Default is "master"
 set POPPLER_BRANCH=%1%
-@rem TODO: pass platform as parameter
-set TARGET_PLATFORM=%2%
+
+@rem directory where to place product. Default is %TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
+set INSTALL_PREFIX=%2%
+
+@rem target platform: x86 or x64 (x64 is not working currently)
+set TARGET_PLATFORM=%3%
 
 set POPPLER_BUILD_TOP=.\poppler-build
 
 rem set POPPLER_BRANCH=master
 
-if "%POPPLER_BRANCH%" == "" set POPPLER_BRANCH=poppler-0.26
+if "%POPPLER_BRANCH%" == "" set POPPLER_BRANCH=master
 if "%TARGET_PLATFORM%" == "" set TARGET_PLATFORM=x86
     
 
@@ -19,7 +24,9 @@ if not exist "%POPPLER_BUILD_DIR%" (
 )
 
 @call setenv.bat %TARGET_PLATFORM%
-set INSTALL_PREFIX=%TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
+
+@rem setup "INSTALL_PREFIX" if not provided as command line parameter
+if "%INSTALL_PREFIX%" == "" set INSTALL_PREFIX=%TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
 
 @call get_deps_%TARGET_PLATFORM%.bat
 echo "TARGET_PLATFORM=%TARGET_PLATFORM%"
