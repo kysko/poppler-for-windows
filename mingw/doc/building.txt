@@ -34,10 +34,10 @@ BUILDING Poppler for Windows with Mingw/MSYS
   poppler-src/     - directory containing git repository with poppler sources, which will be checked out by build script.
 
 2.3 Build scripts
-  "build.bat"   - main build script, do actual work, may call other helper scripts. Accepts tag name as parameter ("master" or "poppler-0.24.5",
+  "build.bat"   - main build script, do actual work, may call other helper scripts. Accepts tag name as parameter ("master" or "poppler-0.26.1",
                   check "git tag" output for complete list of available tags
   "build_master.bat" - wrapper that builds "master" branch.
-  "build_stable.bat" - wrapper that builds "stable" (currently poppler-0.24.5) branch (tag)
+  "build_stable.bat" - wrapper that builds "stable" (currently poppler-0.26.1) branch (tag)
   "get_deps.bat"     - helper that downloads and prepares dependencies
   "get_poppler.bat"  - helper that creates and updates sources from remote poppler repository
   "get_runtime_deps.bat" - helper that downloads and collects runtime dependencies
@@ -49,6 +49,6 @@ BUILDING Poppler for Windows with Mingw/MSYS
 3. Building
 Assuming that all tools listed in (1) installed properly, just start "build_master.bat" or "build_stable.bat" and wait.
 Ready to run poppler binaries will be placed in %TOP%\poppler-install\<tag-name>_<architecture>\bin folder.
-***IMPORTANT*** spaces in path to %TOP% are NOT ALLOWED
+***IMPORTANT*** spaces in path to %TOP% are NOT ALLOWED (build script weren't tested with path containing spaces)
 
 That's all  
