@@ -1,0 +1,11 @@
+--- jconfig.h.orig	2014-04-28 23:20:30 +0400
++++ jconfig.h	2014-04-28 23:27:58 +0400
+@@ -2,7 +2,7 @@
+ /* jconfig.cfg --- source file edited by configure script */
+ /* see jconfig.txt for explanations */
+ 
+-#undef HAVE_PROTOTYPES
++#define HAVE_PROTOTYPES 1
+ #undef HAVE_UNSIGNED_CHAR
+ #undef HAVE_UNSIGNED_SHORT
+ #undef void

@@ -1,1 +1,1 @@
-build.bat poppler-0.24.5
+build.bat poppler-0.26.1
