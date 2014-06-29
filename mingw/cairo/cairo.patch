@@ -1,0 +1,11 @@
+--- cairo-missing-orig.h	2014-06-23 23:37:19 +0400
++++ cairo-missing.h	2014-06-24 01:46:19 +0400
+@@ -41,7 +41,7 @@
+ #define WIN32_LEAN_AND_MEAN
+ #include <windows.h>
+ 
+-#ifndef _SSIZE_T_DEFINED
++#ifndef _SSIZE_T_
+ typedef SSIZE_T ssize_t;
+ #endif
+ #endif
