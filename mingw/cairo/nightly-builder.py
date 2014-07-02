@@ -1,8 +1,6 @@
 """ 
 Simple script for automated building popper for Windows (MinGW build)
-
 """
-
 
 import sys, argparse, os, ConfigParser, subprocess, re
 
@@ -64,16 +62,19 @@ def build_cairo(root_dir, branch, install_top):
                 
                 
 if __name__ == "__main__":
+    
     #  write default config file if not exists
     if not os.path.isfile(CONFIG_FILENAME):
         write_default_conf()
 
+    retval = 0
     # save directory where we started
     startup_dir = os.getcwd()
     parser  = argparse.ArgumentParser()
     parser.add_argument("--config", help="specifies config file name", type=str)
     
     args = parser.parse_args()
+    
     
     if args.config:
         config_filename = args.config
@@ -117,8 +118,11 @@ if __name__ == "__main__":
             print "saving state", state
             os.chdir(startup_dir)
             save_state(state)
+        else:
+            print "Build failed."
+            retval = 1
     else:
         print "noting to build.."
 
     os.chdir(saved_cwd)
-
+    sys.exit(retval)

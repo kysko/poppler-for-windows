@@ -28,14 +28,20 @@ if not exist "%POPPLER_BUILD_DIR%" (
 @rem setup "INSTALL_PREFIX" if not provided as command line parameter
 if "%INSTALL_PREFIX%" == "" set INSTALL_PREFIX=%TOP%\poppler-install\%TARGET_PLATFORM%\%POPPLER_BRANCH%
 
+pushd %CD%
 @call get_deps_%TARGET_PLATFORM%.bat
+rem echo "current dir: %CD%"
+popd
+
 echo "TARGET_PLATFORM=%TARGET_PLATFORM%"
+
 @call get_poppler.bat
 
 
 @echo checking out sources
 pushd %CD%
 cd %POPPLER_SRC%
+echo "checking out branch %POPPLER_BRANCH%"
 git checkout %POPPLER_BRANCH%
 git pull
 popd
@@ -74,7 +80,7 @@ cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DICONV_INCLUDE_DIR:PATH="%TOP_DEPS%/libiconv/include"^
   -DICONV_LIBRARIES:FILEPATH="%TOP_DEPS%/libiconv/lib/libiconv.a"^
   -DCAIRO_INCLUDE_DIR:PATH="%TOP_DEPS%/cairo/include/cairo"^
-  -DCAIRO_LIBRARY:FILEPATH="%TOP_DEPS%/cairo/lib/libcairo.dll.a"^
+  -DCAIRO_LIBRARY:FILEPATH="%TOP_DEPS%/cairo/lib/libcairo.a"^
   -DPNG_PNG_INCLUDE_DIR:PATH="%TOP_DEPS%/libpng/include"^
   -DPNG_LIBRARY:FILEPATH="%TOP_DEPS%/libpng/lib/libpng14.dll.a"^
   -DTIFF_INCLUDE_DIR:PATH="%TOP_DEPS%/libtiff/include"^
@@ -104,7 +110,7 @@ cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DCAIRO_INCLUDE_DIR:PATH="%TOP_DEPS%/cairo/include/cairo"^
   -DCAIRO_LIBRARY:FILEPATH="%TOP_DEPS%/cairo/lib/libcairo.dll.a"^
   -DPNG_PNG_INCLUDE_DIR:PATH="%TOP_DEPS%/libpng/include"^
-  -DPNG_LIBRARY:FILEPATH="%TOP_DEPS%/libpng/lib/libpng14.dll.a"^
+  -DPNG_LIBRARY:FILEPATH="%TOP_DEPS%/libpng/lib/libpng16.dll.a"^
   -DTIFF_INCLUDE_DIR:PATH="%TOP_DEPS%/libtiff/include"^
   -DTIFF_LIBRARY:FILEPATH="%TOP_DEPS%/libtiff/lib/libtiff.dll.a"^
   -DFONT_CONFIGURATION:STRING="win32"^
@@ -119,6 +125,8 @@ cmake -G "MinGW Makefiles" %POPPLER_SRC%  ^
   -DLCMS2_LIBRARIES:FILEPATH="%TOP_DEPS%/lcms2/lib/liblcms2.a"^ 
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 )
+
+
 
 echo "CMAKE DONE"
 rem if %ERRORLEVEL% neq 0 goto :error
@@ -144,6 +152,7 @@ goto :end
 
 :error
 echo "BUILD FAILED!"
+exit /b -1
 
 :end
 echo "finished"
