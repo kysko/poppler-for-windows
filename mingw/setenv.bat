@@ -1,8 +1,9 @@
 set PLATFORM=x86
 if NOT "%1" == "" SET PLATFORM=%1
 
-set TOP=%CD%
+set TOP=%~dp0
 set PROGRAM_FILES=%ProgramFiles(x86)%
+if "%PROGRAM_FILES%" == "" set PROGRAM_FILES=%ProgramFiles%
 set TOP_DEPS=%TOP%\deps\%PLATFORM%
 rem set QT_BIN=c:\Qt\4.8.5-mingw\bin
 set POPPLER_URL=git://git.freedesktop.org/git/poppler/poppler

@@ -117,6 +117,7 @@ if __name__ == "__main__":
    
     ZIP = os.path.abspath(root_dir) + "/utils/" + ZIP
     # checking dependencies
+    
     check_dependencies()
 
     saved_cwd = os.getcwd()
