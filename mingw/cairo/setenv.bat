@@ -1,5 +1,6 @@
-set TOP=%CD%
+set TOP=%~dp0
 set PROGRAM_FILES=%ProgramFiles(x86)%
+if "%PROGRAM_FILES%" == "" set PROGRAM_FILES=%ProgramFiles%
 set TOP_DEPS=%TOP%\deps
 rem set QT_BIN=c:\Qt\4.8.5-mingw\bin
 set MSYS_BIN=c:\mingw\msys\1.0\bin

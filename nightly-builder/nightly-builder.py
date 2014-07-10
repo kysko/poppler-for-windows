@@ -75,7 +75,7 @@ def build_poppler(root_dir, branch, install_top):
     try:
         os.chdir(root_dir)
         # build
-        #subprocess.check_call([BUILD_SCRIPT, branch, install_prefix])
+        subprocess.check_call([BUILD_SCRIPT, branch, install_prefix])
         # pack as zip
         archive_poppler_build(install_prefix, install_top + "\\x86")
 
@@ -117,6 +117,7 @@ if __name__ == "__main__":
    
     ZIP = os.path.abspath(root_dir) + "/utils/" + ZIP
     # checking dependencies
+    
     check_dependencies()
 
     saved_cwd = os.getcwd()

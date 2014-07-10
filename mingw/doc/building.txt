@@ -10,6 +10,9 @@ BUILDING Poppler for Windows with Mingw/MSYS
      -  mingw32-libiconv-dev
      -  mingw32-libiconv-bin
      -  mingw32-expat
+     -  msys-autoconf 
+     -  msys-automake 
+     -  msys-libtool
      or close mingw-get UI right after it installed,  add c:\MinGW\bin directory to your PATH variable and run "setup_mingw.bat" helper script,
      it will install all needed packages automatically.
 1.2. msysgit (http://msysgit.github.io/)
