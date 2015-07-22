@@ -54,7 +54,7 @@ if "%TOP_DEPS%" == "" (
 )
 
 rem We should not have MSYS bin dir in path because cmake complains about it when target compiler is Mingw
-set PATH=%MINGW_BIN%;%CMAKE_BIN%;%QT_BIN%;%UTILS_PATH%;%SYSTEMROOT%\System32;
+set PATH=%MINGW_BIN%;%CMAKE_BIN%;%QT_BIN%;%UTILS_PATH%;%SYSTEMROOT%\System32;%PATH%
 rem echo "PATH=%PATH%"
 
 rem  TODO delete following lines when done
